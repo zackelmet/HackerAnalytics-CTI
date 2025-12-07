@@ -8,26 +8,10 @@ interface PlanSelectionModalProps {
 export default function PlanSelectionModal({ onClose }: PlanSelectionModalProps) {
     const [loading, setLoading] = useState<string | null>(null);
 
-    // Price IDs from environment
-    const priceIds = {
-        essential: process.env.NEXT_PUBLIC_STRIPE_PRICE_ESSENTIAL,
-        pro: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO,
-        scale: process.env.NEXT_PUBLIC_STRIPE_PRICE_SCALE
-    };
-
-    // Log environment variables for debugging (only in development)
-    React.useEffect(() => {
-        console.log('Stripe Price IDs:', {
-            essential: priceIds.essential ? '✓ Set' : '✗ Missing',
-            pro: priceIds.pro ? '✓ Set' : '✗ Missing',
-            scale: priceIds.scale ? '✓ Set' : '✗ Missing'
-        });
-    }, []);
-
-    const handleCheckout = (tier: string, priceId: string | undefined) => {
+    const handleCheckout = (tier: string) => {
         setLoading(tier);
         const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://your-app.example.app';
-        // Forward to external app pricing page — the app will handle auth and checkout flow.
+        // Redirect to the external app; pricing and checkout are handled there.
         window.location.href = `${appUrl}/pricing`;
     };
 
@@ -66,7 +50,7 @@ export default function PlanSelectionModal({ onClose }: PlanSelectionModalProps)
                             </li>
                         </ul>
                         <button
-                            onClick={() => handleCheckout('essential', priceIds.essential)}
+                            onClick={() => handleCheckout('essential')}
                             disabled={loading !== null}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
@@ -109,7 +93,7 @@ export default function PlanSelectionModal({ onClose }: PlanSelectionModalProps)
                             </li>
                         </ul>
                         <button
-                            onClick={() => handleCheckout('pro', priceIds.pro)}
+                            onClick={() => handleCheckout('pro')}
                             disabled={loading !== null}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
@@ -151,7 +135,7 @@ export default function PlanSelectionModal({ onClose }: PlanSelectionModalProps)
                             </li>
                         </ul>
                         <button
-                            onClick={() => handleCheckout('scale', priceIds.scale)}
+                            onClick={() => handleCheckout('scale')}
                             disabled={loading !== null}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
