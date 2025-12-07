@@ -5,8 +5,8 @@ const app = null;
 const analytics = null;
 
 const auth = {
-  // Minimal placeholder values used by imports across the codebase.
-  currentUser: null,
+    // Minimal placeholder values used by imports across the codebase.
+    currentUser: null
 };
 
 const db = null;

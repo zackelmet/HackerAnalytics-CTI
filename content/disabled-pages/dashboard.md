@@ -5,4 +5,3 @@ type: DashboardLayout
 sections:
   - type: DashboardSection
 ---
-
