@@ -17,6 +17,45 @@ import { Action, Badge } from '../../atoms';
 export default function OurProcessSection(props) {
     const { elementId, colors, backgroundImage, badge, title, subtitle, plans = [], styles = {}, enableAnnotations } = props;
 
+    // Default content when none provided from CMS/content files
+    const defaultPlans = [
+        {
+            title: 'Instant Deployment & Zero Setup',
+            description: 'Start scanning immediately without the hassle of installing or maintaining dedicated infrastructure.'
+        },
+        {
+            title: 'Slash Infrastructure Costs',
+            description: 'Eliminate the need to purchase, power, and patch your own scanning hardware and software licenses.'
+        },
+        {
+            title: 'Effortless Scalability',
+            description: 'Easily scale your scanning capacity up or down to cover one asset or a thousand, without managing physical resources.'
+        },
+        {
+            title: 'Scan From Anywhere',
+            description: 'Perform external and internal network scans against public-facing assets, no matter your physical location.'
+        },
+        {
+            title: 'Always Up-to-Date',
+            description: 'The scanner is automatically updated with the latest vulnerability feeds and zero-day patches, ensuring comprehensive coverage.'
+        },
+        {
+            title: 'Focus on Remediation',
+            description: 'Free up your security team to focus solely on fixing vulnerabilities, not managing scanner uptime and maintenance.'
+        }
+    ];
+
+    const contentPlans = (plans && plans.length > 0) ? plans : defaultPlans;
+
+    const icons = [
+        '/images/icons/rocket.svg',
+        '/images/icons/cost.svg',
+        '/images/icons/cloud.svg',
+        '/images/icons/globe.svg',
+        '/images/icons/update.svg',
+        '/images/icons/target.svg'
+    ];
+
     return (
         <Section elementId={elementId} className="sb-component-our-process" colors={colors} backgroundImage={backgroundImage} styles={styles?.self} {...getDataAttrs(props)}>
             <div className={classNames('w-full', 'flex', 'flex-col', 'items-center', 'gap-y-6')}>
@@ -31,38 +70,25 @@ export default function OurProcessSection(props) {
                 )}
 
                 <div className="w-full max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" {...(enableAnnotations && { 'data-sb-field-path': '.plans' })}>
-                        {plans && plans.length > 0 ? (
-                            plans.map((plan, idx) => (
-                                <div
-                                    key={idx}
-                                    className="fade-in bg-[#071128] text-[#00fed9] rounded-xl p-6 shadow-lg transform-gpu bounce-on-hover"
-                                >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" {...(enableAnnotations && { 'data-sb-field-path': '.plans' })}>
+                        {contentPlans && contentPlans.length > 0 ? (
+                            contentPlans.map((plan, idx) => (
+                                <div key={idx} className="fade-in bg-white/5 text-slate-200 rounded-xl p-6 shadow-lg transform-gpu hover:-translate-y-1 transition-transform">
                                     <div className="relative h-full flex flex-col">
                                         <div className="absolute -top-5 left-6">
                                             <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-dark font-bold">{idx + 1}</div>
                                         </div>
                                         <div className="flex-1 pt-6">
                                             <div className="flex items-start gap-4">
-                                                <div className="w-12 h-12 rounded-md bg-white/6 flex items-center justify-center">
-                                                    {/* placeholder icon — using simple inline SVG to avoid new deps */}
-                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#00fed9]">
-                                                        <path d="M12 2L19 8V21H5V8L12 2Z" stroke="#00fed9" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                                                    </svg>
+                                                <div className="w-12 h-12 rounded-md bg-white/6 flex items-center justify-center text-primary">
+                                                    <img src={icons[idx % icons.length]} alt="icon" className="w-6 h-6" />
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-xl font-semibold leading-tight mb-2">{plan.title}</h3>
+                                                    <h3 className="text-xl font-semibold leading-tight mb-2 text-slate-100">{plan.title}</h3>
                                                     {plan.description && (
-                                                        <p className="text-sm mb-3 text-[#aaf7e7]">
+                                                        <p className="text-sm mb-3 text-slate-300">
                                                             {plan.description}
                                                         </p>
-                                                    )}
-                                                    {plan.features && plan.features.length > 0 && (
-                                                        <ul className="list-disc list-inside text-sm space-y-1 mt-2">
-                                                            {plan.features.map((f, i) => (
-                                                                <li key={i}>{f}</li>
-                                                            ))}
-                                                        </ul>
                                                     )}
                                                 </div>
                                             </div>
@@ -71,7 +97,7 @@ export default function OurProcessSection(props) {
                                 </div>
                             ))
                         ) : (
-                            <div className="col-span-full text-center text-sm text-[#9fefe0]">No steps defined.</div>
+                            <div className="col-span-full text-center text-sm text-slate-400">No steps defined.</div>
                         )}
                     </div>
                 </div>
