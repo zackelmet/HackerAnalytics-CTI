@@ -28,7 +28,7 @@
     },
     "devDependencies": {
         "@base2/pretty-print-object": "^1.0.2",
-        "@netlify/plugin-nextjs": "^5.15.1",
+        "@netlify/plugin-nextjs": "^4.40.0",
         "@stackbit/cms-git": "^1.0.32",
         "@stackbit/types": "^2.1.10",
         "@types/glob": "^8.1.0",
