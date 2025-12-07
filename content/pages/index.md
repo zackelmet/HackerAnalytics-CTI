@@ -34,18 +34,18 @@ sections:
 
   - type: FeaturedItemsSection
     title:
-      text: Complete Security Assessment Platform
+      text: Internet facing scanners
       color: text-dark
       type: TitleBlock
-    subtitle: Proactive vulnerability detection with industry-leading tools
+    subtitle: Instant Deployment & Zero Setup
     items:
       - type: FeaturedItem
-        title: "Attacker's Perspective Testing"
-        tagline: Internet Facing Vulnerability Scanners
-        subtitle: Proactively hunt for security weaknesses by simulating real-world security events and assessing vulnerabilities from the attacker's viewpoint.
+        title: Instant Deployment & Zero Setup
+        tagline: Start scanning immediately
+        subtitle: Start scanning immediately without the hassle of installing or maintaining dedicated infrastructure.
         image:
           url: /images/icon1.svg
-          altText: Network security perspective
+          altText: Instant deployment
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
@@ -57,14 +57,14 @@ sections:
               - pb-8
               - pr-8
             borderRadius: medium
-            
+
       - type: FeaturedItem
-        title: Trusted Industry Tools
-        tagline: Security Professional Standard
-        subtitle: Find security holes using trusted open-source tools—the same powerful scanners utilized by penetration testers and security professionals around the world.
+        title: Slash Infrastructure Costs
+        tagline: Eliminate infrastructure overhead
+        subtitle: Eliminate the need to purchase, power, and patch your own scanning hardware and software licenses.
         image:
           url: /images/icon2.svg
-          altText: Trusted security tools
+          altText: Slash costs
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
@@ -76,14 +76,14 @@ sections:
               - pb-8
               - pr-8
             borderRadius: medium
-            
+
       - type: FeaturedItem
-        title: Complete Attack Surface Discovery
-        tagline: Full Network Visibility
-        subtitle: Discover and map your entire attack surface using a combination of scanning tools and open-source intelligence to gain improved visibility into your network footprint.
+        title: Effortless Scalability
+        tagline: Scale to any size
+        subtitle: Easily scale your scanning capacity up or down to cover one asset or a thousand, without managing physical resources.
         image:
           url: /images/icon3.svg
-          altText: Network discovery
+          altText: Effortless scalability
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
@@ -95,14 +95,14 @@ sections:
               - pb-8
               - pr-8
             borderRadius: medium
-            
+
       - type: FeaturedItem
-        title: Zero Maintenance & Optimized Performance
-        tagline: Fast & Hassle-Free
-        subtitle: Leverage fast servers optimized for vulnerability scanning across the Internet, requiring zero software installation, setup, or maintenance on your end.
+        title: Scan From Anywhere
+        tagline: External & internal scanning
+        subtitle: Perform external and internal network scans against public-facing assets, no matter your physical location.
         image:
           url: /images/icon1.svg
-          altText: High performance servers
+          altText: Scan from anywhere
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
@@ -114,14 +114,14 @@ sections:
               - pb-8
               - pr-8
             borderRadius: medium
-            
+
       - type: FeaturedItem
-        title: Identify, Remediate, Re-Test Cycle
-        tagline: Continuous Security Improvement
-        subtitle: 'Fixing security issues is a process: quickly identify the issue, remediate the risk using actionable data, and test again to be completely sure.'
+        title: Always Up-to-Date
+        tagline: Continuous vulnerability updates
+        subtitle: The scanner is automatically updated with the latest vulnerability feeds and zero-day patches, ensuring comprehensive coverage.
         image:
           url: /images/icon2.svg
-          altText: Security workflow cycle
+          altText: Always up-to-date
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
@@ -133,14 +133,14 @@ sections:
               - pb-8
               - pr-8
             borderRadius: medium
-            
+
       - type: FeaturedItem
-        title: Proven Technology & Deep Experience
-        tagline: Since 1997
-        subtitle: Your security relies on decades of refinement. The underlying open-source technology, such as Nmap, has been actively developed and trusted by the security community since the late 1990s.
+        title: Focus on Remediation
+        tagline: Prioritize fixes
+        subtitle: Free up your security team to focus solely on fixing vulnerabilities, not managing scanner uptime and maintenance.
         image:
           url: /images/icon3.svg
-          altText: Proven technology
+          altText: Focus on remediation
           type: ImageBlock
         actions: []
         colors: bg-light-fg-dark
