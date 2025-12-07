@@ -1,10 +1,24 @@
 import * as admin from 'firebase-admin';
 
-if (!admin.apps.length) {
+function initializeFirebaseAdmin() {
+    if (admin.apps.length) {
+        return;
+    }
+
     const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY;
+    const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID;
+    const clientEmail = process.env.FIREBASE_ADMIN_CLIENT_EMAIL;
     
     if (!privateKey) {
-        throw new Error('FIREBASE_ADMIN_PRIVATE_KEY is not set');
+        throw new Error('FIREBASE_ADMIN_PRIVATE_KEY environment variable is not set');
+    }
+    
+    if (!projectId) {
+        throw new Error('FIREBASE_ADMIN_PROJECT_ID environment variable is not set');
+    }
+    
+    if (!clientEmail) {
+        throw new Error('FIREBASE_ADMIN_CLIENT_EMAIL environment variable is not set');
     }
     
     // Handle both escaped newlines and actual newlines
@@ -12,14 +26,30 @@ if (!admin.apps.length) {
         ? privateKey.replace(/\\n/g, '\n')
         : privateKey;
     
-    admin.initializeApp({
-        credential: admin.credential.cert({
-            projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
-            clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-            privateKey: formattedKey,
-        }),
-    });
+    try {
+        admin.initializeApp({
+            credential: admin.credential.cert({
+                projectId: projectId,
+                clientEmail: clientEmail,
+                privateKey: formattedKey,
+            }),
+        });
+    } catch (error: any) {
+        throw new Error(`Failed to initialize Firebase Admin: ${error.message}`);
+    }
 }
 
-export const auth = admin.auth();
-export const db = admin.firestore();
+// Lazy initialization - only initialize when actually used
+export const auth = new Proxy({} as admin.auth.Auth, {
+    get(target, prop) {
+        initializeFirebaseAdmin();
+        return (admin.auth() as any)[prop];
+    }
+});
+
+export const db = new Proxy({} as admin.firestore.Firestore, {
+    get(target, prop) {
+        initializeFirebaseAdmin();
+        return (admin.firestore() as any)[prop];
+    }
+});

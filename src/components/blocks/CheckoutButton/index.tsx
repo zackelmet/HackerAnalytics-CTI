@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { auth } from '../../../utils/firebase';
+import { useState } from 'react';
 
 interface CheckoutButtonProps {
     tier: 'ESSENTIAL' | 'PRO' | 'SCALE';
@@ -12,49 +11,13 @@ interface CheckoutButtonProps {
 export default function CheckoutButton({ tier, label = 'Get Started', style = 'primary' }: CheckoutButtonProps) {
     const [loading, setLoading] = useState(false);
 
-    const priceIds = {
-        ESSENTIAL: process.env.NEXT_PUBLIC_STRIPE_PRICE_ESSENTIAL,
-        PRO: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO,
-        SCALE: process.env.NEXT_PUBLIC_STRIPE_PRICE_SCALE,
-    };
+    // Redirect users to the external app for purchases. Uses env var if set.
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://your-app.example.app';
 
-    const handleCheckout = async () => {
-        const user = auth.currentUser;
-        
-        if (!user) {
-            window.location.href = '/login?redirect=/pricing';
-            return;
-        }
-
+    const handleCheckout = () => {
         setLoading(true);
-
-        try {
-            const idToken = await user.getIdToken();
-            const priceId = priceIds[tier];
-
-            const response = await fetch('/api/stripe/create-checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    priceId,
-                    idToken,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No checkout URL returned');
-            }
-        } catch (error) {
-            console.error('Error creating checkout session:', error);
-            alert('Failed to start checkout. Please try again.');
-            setLoading(false);
-        }
+        // Redirect to the app's pricing/checkout page. The app handles auth and checkout.
+        window.location.href = `${appUrl}/pricing`;
     };
 
     return (
@@ -65,7 +28,7 @@ export default function CheckoutButton({ tier, label = 'Get Started', style = 'p
                 style === 'primary' ? 'sb-component-button-primary' : 'sb-component-button-secondary'
             } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-            {loading ? 'Loading...' : label}
+            {loading ? 'Redirecting…' : label}
         </button>
     );
 }

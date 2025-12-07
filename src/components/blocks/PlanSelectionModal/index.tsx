@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { auth } from '../../../utils/firebase';
 
 interface PlanSelectionModalProps {
     onClose: () => void;
@@ -25,78 +24,11 @@ export default function PlanSelectionModal({ onClose }: PlanSelectionModalProps)
         });
     }, []);
 
-    const handleCheckout = async (tier: string, priceId: string | undefined) => {
+    const handleCheckout = (tier: string, priceId: string | undefined) => {
         setLoading(tier);
-
-        try {
-            // Validate price ID
-            if (!priceId) {
-                throw new Error(`Price ID for ${tier} plan is not configured. Please contact support.`);
-            }
-
-            // Get Firebase ID token
-            const user = auth.currentUser;
-            if (!user) {
-                alert('Please sign in to continue');
-                setLoading(null);
-                return;
-            }
-
-            const idToken = await user.getIdToken();
-
-            const response = await fetch('/api/stripe/create-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId, idToken })
-            });
-
-            console.log('Response received:', {
-                status: response.status,
-                statusText: response.statusText,
-                ok: response.ok,
-                headers: Object.fromEntries(response.headers.entries())
-            });
-
-            if (!response.ok) {
-                // Get full error details from API
-                const errorText = await response.text();
-                console.log('Raw error text:', errorText);
-
-                let errorData;
-                try {
-                    errorData = JSON.parse(errorText);
-                } catch (parseError) {
-                    console.error('Failed to parse error JSON:', parseError);
-                    errorData = { error: errorText || 'Server error occurred' };
-                }
-
-                console.error('Checkout failed:', errorData);
-                console.error('Response status:', response.status);
-                console.error('Full error response:', errorText);
-
-                // Display detailed error to user
-                const errorMessage = errorData.error || errorData.message || errorData.details || errorText || `Server error (${response.status})`;
-                throw new Error(errorMessage);
-            }
-
-            const { url } = await response.json();
-
-            if (!url) {
-                throw new Error('No checkout URL received from server');
-            }
-
-            window.location.href = url;
-        } catch (error: any) {
-            console.error('Checkout error:', error);
-            console.error('Error details:', {
-                message: error.message,
-                tier: tier,
-                priceId: priceId,
-                hasUser: !!auth.currentUser
-            });
-            alert(`Failed to start checkout: ${error.message || 'Unknown error occurred'}`);
-            setLoading(null);
-        }
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://your-app.example.app';
+        // Forward to external app pricing page — the app will handle auth and checkout flow.
+        window.location.href = `${appUrl}/pricing`;
     };
 
     return (
