@@ -75,7 +75,7 @@ export default function OurProcessSection(props) {
                             contentPlans.map((plan, idx) => (
                                 <div
                                     key={idx}
-                                    className="fade-in bg-slate-900/70 text-slate-50 rounded-xl p-6 shadow-lg border border-slate-800 transform-gpu hover:-translate-y-1 hover:shadow-xl hover:border-primary/60 transition-all"
+                                    className="fade-in bg-white text-slate-900 rounded-xl p-6 shadow-lg border border-slate-200 transform-gpu hover:-translate-y-1 hover:shadow-xl hover:border-primary/50 transition-all"
                                 >
                                     <div className="relative h-full flex flex-col">
                                         <div className="absolute -top-5 left-6">
@@ -83,13 +83,13 @@ export default function OurProcessSection(props) {
                                         </div>
                                         <div className="flex-1 pt-6">
                                             <div className="flex items-start gap-4">
-                                                <div className="w-12 h-12 rounded-md bg-white/10 flex items-center justify-center text-primary">
+                                                <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center text-primary">
                                                     <img src={icons[idx % icons.length]} alt="icon" className="w-6 h-6" />
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-xl font-semibold leading-tight mb-2 text-white">{plan.title}</h3>
+                                                    <h3 className="text-xl font-semibold leading-tight mb-2 text-slate-900">{plan.title}</h3>
                                                     {plan.description && (
-                                                        <p className="text-sm mb-3 text-slate-200">
+                                                        <p className="text-sm mb-3 text-slate-700">
                                                             {plan.description}
                                                         </p>
                                                     )}
